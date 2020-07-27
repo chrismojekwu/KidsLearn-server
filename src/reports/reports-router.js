@@ -8,7 +8,7 @@ const jsonBodyParser = express.json();
 reportsRouter.route("/getAllReports").get((req, res, next) => {
   ReportsService.getAllReports(req.app.get("db"))
     .then((reports) => {
-      res.json(ReportsService.serializeReports(reports));
+      res.status(200).json(ReportsService.serializeReports(reports));
     })
     .catch(next);
 });
@@ -61,6 +61,17 @@ reportsRouter
       })
       .catch(next);
   });
+
+reportsRouter.route("/share/:rep_id").get((req, res, next) => {
+  ReportsService.getAllReports(req.app.get("db"))
+    .then((reports) => {
+      const report = reports.filter((report) => {
+        return report.id.toString() === req.params.rep_id;
+      });
+      res.status(200).json(report);
+    })
+    .catch(next);
+});
 
 async function checkForReports(req, res, next) {
   console.log("checkForReports");

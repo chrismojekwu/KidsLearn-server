@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 function makeUsersArray() {
   return [
     {
-      id: 1,
+      id: 5,
       user_name: "test-user-1",
       child_name: "Test child 1",
       email: "TU1",
@@ -67,7 +67,7 @@ function makeReportsArray(users) {
       user_id: users[1].id,
     },
     {
-      id: 2,
+      id: 3,
       date_created: new Date("2029-01-22T16:28:32.615Z"),
       letters: 2,
       colors: 3,
@@ -78,7 +78,7 @@ function makeReportsArray(users) {
       user_id: users[2].id,
     },
     {
-      id: 3,
+      id: 4,
       date_created: new Date("2029-01-22T16:28:32.615Z"),
       letters: 2,
       colors: 3,
@@ -89,7 +89,7 @@ function makeReportsArray(users) {
       user_id: users[3].id,
     },
     {
-      id: 4,
+      id: 5,
       date_created: new Date("2029-01-22T16:28:32.615Z"),
       letters: 2,
       colors: 3,
@@ -100,7 +100,7 @@ function makeReportsArray(users) {
       user_id: users[2].id,
     },
     {
-      id: 5,
+      id: 6,
       date_created: new Date("2029-01-22T16:28:32.615Z"),
       letters: 2,
       colors: 3,
@@ -166,6 +166,9 @@ function seedUsers(db, users) {
     ...user,
     password: bcrypt.hashSync(user.password, 1),
   }));
+
+  //console.log("ayyyyy >>> ", preppedUsers);
+
   return db
     .into("kidslearn_users")
     .insert(preppedUsers)
@@ -182,7 +185,7 @@ function seedReports(db, users, reports) {
     await seedUsers(trx, users);
     await trx.into("kidslearn_reports").insert(reports);
     // update the auto sequence to match the forced id values
-    await trx.raw(`SELECT setval('kidslearn_reportss_id_seq', ?)`, [
+    await trx.raw(`SELECT setval('kidslearn_reports_id_seq', ?)`, [
       reports[reports.length - 1].id,
     ]);
   });
