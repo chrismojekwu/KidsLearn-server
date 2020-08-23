@@ -111,7 +111,21 @@ describe("Reports Endpoints", function () {
     });
   });
 
-  describe(`DELETE /api/reports`, () => {
+  describe(`GET /api/reports/:rep_id`, () => {
+    context(`Given a full daatabase it retrieves a specified report`, () => {
+      it(`retrieves specified report`, () => {
+        return supertest(app)
+          .get("/api/reports/5")
+          .set("Authorization", `Bearer ${bearerToken}`)
+          .expect(200)
+          .expect((res) => {
+            res.body[0].child_name === testReports[2].child_name;
+          });
+      });
+    });
+  });
+
+  describe(`DELETE /api/reports/:rep_id`, () => {
     context(`Given full database it deletes a report`, () => {
       it(`successfully deletes a specified report`, () => {
         return supertest(app)

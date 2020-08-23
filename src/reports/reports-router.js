@@ -51,7 +51,7 @@ reportsRouter
     const report = req.reports.filter((reports) => {
       return reports.id.toString() === req.params.rep_id;
     });
-    res.json(report);
+    res.status(200).json(report);
   })
   .delete((req, res, next) => {
     const id = req.params.rep_id;
