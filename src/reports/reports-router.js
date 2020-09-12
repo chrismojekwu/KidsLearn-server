@@ -74,7 +74,6 @@ reportsRouter.route("/share/:rep_id").get((req, res, next) => {
 });
 
 async function checkForReports(req, res, next) {
-  console.log("checkForReports");
   try {
     const reports = await ReportsService.getById(
       req.app.get("db"),
