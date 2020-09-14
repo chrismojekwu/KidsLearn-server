@@ -167,8 +167,6 @@ function seedUsers(db, users) {
     password: bcrypt.hashSync(user.password, 1),
   }));
 
-  //console.log("ayyyyy >>> ", preppedUsers);
-
   return db
     .into("kidslearn_users")
     .insert(preppedUsers)
